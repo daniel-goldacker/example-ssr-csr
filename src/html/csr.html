@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSR Frontend</title>
+</head>
+<body>
+    <h1>CSR Frontend</h1>
+    <div id="data-container"></div>
+
+    <script>
+        async function fetchData() {
+            const username = 'testuser';
+            const password = 'testpassword';
+
+            const url = new URL('http://localhost:8080/token');
+            url.searchParams.append('username', username);
+            url.searchParams.append('password', password);
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            
+            const data = await response.json();
+            document.getElementById('data-container').innerText = data.access_token;
+        }
+
+        fetchData();
+    </script>
+</body>
+</html>
